@@ -1,5 +1,5 @@
 # Pull base image.
-FROM actency/docker-apache-php:7.0-dev
+FROM tehes/docker-apache-php:7.0
 
 # Install WKHTMLTOPDF from sources
 RUN apt-get update && apt-get remove -y libqt4-dev qt4-dev-tools wkhtmltopdf && apt-get autoremove -y

@@ -45,7 +45,7 @@ The image basically contains:
       # database container - tehes images
       database:
         # tehes/docker-mysql available tags: latest, 5.7
-        image: actency/docker-mysql:5.7
+        image: tehes/docker-mysql:5.7
         ports:
           - "3306:3306"
         environment:
