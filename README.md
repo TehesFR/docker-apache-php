@@ -39,6 +39,7 @@ The image basically contains:
           - redis
           - tika
         tty: true
+        # local IP address of your host in order to use xdebug
         extra_hosts:
           - "docker_host:10.10.10.10"
 
