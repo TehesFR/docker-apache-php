@@ -1,5 +1,5 @@
 # Pull base image.
-FROM php:7.0.15-apache
+FROM php:7.0.16-apache
 COPY config/php.ini /usr/local/etc/php/
 
 RUN apt-get clean && apt-get update && apt-get install --fix-missing wget -y
