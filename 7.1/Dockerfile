@@ -2,10 +2,12 @@
 FROM php:7.1.2-apache
 COPY config/php.ini /usr/local/etc/php/
 
-RUN apt-get clean && apt-get update && apt-get install --fix-missing wget -y
+RUN apt-get clean && apt-get update && apt-get install --fix-missing wget apt-transport-https lsb-release ca-certificates -y
 RUN echo "deb http://packages.dotdeb.org jessie all" >> /etc/apt/sources.list
 RUN echo "deb-src http://packages.dotdeb.org jessie all" >> /etc/apt/sources.list
 RUN cd /tmp && wget https://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 
 RUN apt-get clean && apt-get update && apt-get install --fix-missing -y \
   ruby-dev \
@@ -15,7 +17,7 @@ RUN apt-get clean && apt-get update && apt-get install --fix-missing -y \
   sudo \
   git \
   vim \
-  php7.0-dev \
+  php7.1-dev \
   memcached \
   libmemcached-tools \
   libmemcached-dev \
@@ -25,12 +27,12 @@ RUN apt-get clean && apt-get update && apt-get install --fix-missing -y \
   libxml2-dev \
   libxslt1-dev \
   mysql-client \
-  php5-mysqlnd \
+  #php5-mysqlnd \
+  php7.1-mysql \
   zip \
   wget \
   linux-libc-dev \
   libyaml-dev \
-  apt-transport-https \
   zlib1g-dev \
   libicu-dev \
   libpq-dev \
@@ -44,7 +46,7 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo 
 RUN cd /tmp && git clone https://github.com/php-memcached-dev/php-memcached.git
 RUN cd /tmp/php-memcached && sudo git checkout php7 && phpize && ./configure --disable-memcached-sasl && make && make install
 RUN touch /usr/local/etc/php/conf.d/memcached.ini &&\
- echo "extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/memcached.so" >> /usr/local/etc/php/conf.d/memcached.ini
+ echo "extension=/usr/local/lib/php/extensions/no-debug-non-zts-20160303/memcached.so" >> /usr/local/etc/php/conf.d/memcached.ini
 
 COPY docker-php-ext-install /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-php-ext-install
@@ -107,8 +109,8 @@ RUN cd /usr/local/src/drush && composer update && composer install
 
 # Install xdebug. We need at least 2.4 version to have PHP 7 support.
 RUN cd /tmp/ && wget http://xdebug.org/files/xdebug-2.4.0.tgz && tar -xvzf xdebug-2.4.0.tgz && cd xdebug-2.4.0/ && phpize && ./configure --enable-xdebug --with-php-config=/usr/local/bin/php-config && make && make install
-RUN cd /tmp/xdebug-2.4.0 && cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/
-RUN echo 'zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so' >> /usr/local/etc/php/php.ini
+RUN cd /tmp/xdebug-2.4.0 && cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20160303/
+RUN echo 'zend_extension = /usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so' >> /usr/local/etc/php/php.ini
 RUN touch /usr/local/etc/php/conf.d/xdebug.ini &&\
   echo xdebug.remote_enable=1 >> /usr/local/etc/php/conf.d/xdebug.ini &&\
   echo xdebug.remote_autostart=0 >> /usr/local/etc/php/conf.d/xdebug.ini &&\
