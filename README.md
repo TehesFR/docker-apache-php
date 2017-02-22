@@ -3,15 +3,16 @@
 Development **Drupal** optimized images for apache-php.
 
 Available tags are:
-- 7.0, latest ([7.0/Dockerfile](https://github.com/TehesFR/docker-apache-php/blob/master/7.0/Dockerfile))
+- 7.1, latest ([7.1/Dockerfile](https://github.com/TehesFR/docker-apache-php/blob/master/7.1/Dockerfile))
+- 7.0 ([7.0/Dockerfile](https://github.com/TehesFR/docker-apache-php/blob/master/7.0/Dockerfile))
 - 5.6 ([5.6/Dockerfile](https://github.com/TehesFR/docker-apache-php/tree/master/5.6/Dockerfile))
 
 The image basically contains:
 
 - All php libraries needed for Drupal (gd, mbstring, mcrypt, zip, soap, pdo_mysql, mysqli, xsl, opcache, calendar, intl)
-- Development tools for Drupal (xdebug, codesniffer, compass, less, node.js, grunt, gulp, composer, drush, phing, phpcpd, phpmetrics)
+- Development tools for Drupal (xdebug, codesniffer, compass, less, node.js, grunt, gulp, composer, drush, drupal console, phing, phpcpd, phpmetrics)
 - Much more...
-- The 7.0 image includes wkhtmltopdf, and it uses a dedicated "web" user. Use sudo if you want to be root inside the container.
+- The 7.0 and 7.1 images include wkhtmltopdf, and use a dedicated "web" user. Use sudo if you want to be root inside the container.
 
 # Docker-compose
 ## Use this docker-compose.yml to create a complete development environment using several custom Docker images:
@@ -20,7 +21,7 @@ The image basically contains:
     services:
       # web with xdebug - tehes images
       web:
-        # tehes/docker-apache-php available tags: latest, 7.0, 5.6
+        # tehes/docker-apache-php available tags: latest, 7.1, 7.0, 5.6
         image: tehes/docker-apache-php:7.0
         ports:
           - "80:80"
@@ -45,7 +46,7 @@ The image basically contains:
 
       # database container - tehes images
       database:
-        # tehes/docker-mysql available tags: latest, 5.7
+        # tehes/docker-mysql available tags: latest, 8.0, 5.7
         image: tehes/docker-mysql:5.7
         ports:
           - "3306:3306"
@@ -75,7 +76,7 @@ The image basically contains:
 
       # solr container - tehes images
       solr:
-        # tehes/docker-solr available tags: latest, 6.2, 6.1, 6.0, 5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.10, 3.6
+        # tehes/docker-solr available tags: latest, 6.4, 6.3, 6.2, 6.1, 6.0, 5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.10, 3.6
         image: tehes/docker-solr:6.2
         ports:
           - "8080:8983"
