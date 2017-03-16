@@ -81,12 +81,12 @@ COPY core/memcached.conf /etc/memcached.conf
 RUN gem install compass
 
 # Installation node.js
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo bash -
-RUN DEBIAN_FRONTEND=noninteractive apt-get -yq --no-install-recommends install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
+	apt-get update && apt-get install -y nodejs && \
+	npm install npm@latest -g
 
 # Installation of LESS
-RUN npm update -g npm && \
-npm install -g less && npm install -g less-plugin-clean-css
+RUN npm install -g less && npm install -g less-plugin-clean-css
 
 # Installation of Grunt
 RUN npm install -g grunt-cli
