@@ -1,5 +1,5 @@
 # Pull base image.
-FROM php:7.1.2-apache
+FROM php:7.1.7-apache
 COPY config/php.ini /usr/local/etc/php/
 
 RUN apt-get clean && apt-get update && apt-get install --fix-missing wget apt-transport-https lsb-release ca-certificates -y
@@ -18,6 +18,7 @@ RUN apt-get clean && apt-get update && apt-get install --fix-missing -y \
   git \
   vim \
   php7.1-dev \
+  php7.1-bcmath \
   memcached \
   libmemcached-tools \
   libmemcached-dev \
