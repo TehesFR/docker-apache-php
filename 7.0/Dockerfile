@@ -80,8 +80,9 @@ COPY core/memcached.conf /etc/memcached.conf
 RUN gem install compass
 
 # Installation node.js
-RUN curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
-RUN DEBIAN_FRONTEND=noninteractive apt-get -yq --no-install-recommends install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+	apt-get update && apt-get install -y nodejs && \
+	npm install npm@latest -g
 
 # Installation of LESS
 RUN npm update -g npm && \
@@ -161,7 +162,7 @@ RUN curl https://drupalconsole.com/installer -L -o drupal.phar && mv drupal.phar
 RUN apt-get update && apt-get remove -y libqt4-dev qt4-dev-tools wkhtmltopdf && apt-get autoremove -y
 RUN apt-get install openssl build-essential libssl-dev libxrender-dev git-core libx11-dev libxext-dev libfontconfig1-dev libfreetype6-dev fontconfig -y
 RUN mkdir /var/wkhtmltopdf
-RUN cd /var/wkhtmltopdf && wget http://download.gna.org/wkhtmltopdf/0.12/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && tar xf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+RUN cd /var/wkhtmltopdf && wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && tar xf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
 RUN cp /var/wkhtmltopdf/wkhtmltox/bin/wkhtmltopdf /bin/wkhtmltopdf && cp /var/wkhtmltopdf/wkhtmltox/bin/wkhtmltoimage /bin/wkhtmltoimage
 RUN chown -R web:www-data /var/wkhtmltopdf
 RUN chmod +x /bin/wkhtmltopdf && chmod +x /bin/wkhtmltoimage
