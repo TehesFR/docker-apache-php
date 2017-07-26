@@ -16,7 +16,6 @@ RUN apt-get clean && apt-get update && apt-get install --fix-missing -y \
   git \
   vim \
   php7.0-dev \
-  php7.0-bcmath \
   memcached \
   libmemcached-tools \
   libmemcached-dev \
@@ -65,7 +64,8 @@ RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
   exif \
   pgsql \
   pdo_pgsql \
-  ftp
+  ftp \
+  bcmath
 
 # Create new web user for apache and grant sudo without password
 RUN useradd web -d /var/www -g www-data -s /bin/bash
