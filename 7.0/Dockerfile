@@ -72,7 +72,7 @@ RUN useradd web -d /var/www -g www-data -s /bin/bash
 RUN usermod -aG sudo web
 RUN echo 'web ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# Install YAML
+# Install YAML extension
 RUN pecl install yaml-2.0.0 && echo "extension=yaml.so" > /usr/local/etc/php/conf.d/ext-yaml.ini
 
 COPY core/memcached.conf /etc/memcached.conf
