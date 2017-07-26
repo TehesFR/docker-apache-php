@@ -1,5 +1,2 @@
 sut:
   build: .
-  environment:
-      - SERVERNAME=test.build
-  command: echo "Docker Cloud Build OK"
