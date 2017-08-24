@@ -1,5 +1,5 @@
 # Pull base image.
-FROM php:7.1.7-apache
+FROM php:7.1.8-apache
 COPY config/php.ini /usr/local/etc/php/
 
 RUN apt-get clean && apt-get update && apt-get install --fix-missing wget apt-transport-https lsb-release ca-certificates -y
