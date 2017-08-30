@@ -89,8 +89,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
 	npm install npm@latest -g
 
 # Installation of LESS
-RUN npm update -g npm && \
-npm install -g less && npm install -g less-plugin-clean-css
+RUN npm install -g less && npm install -g less-plugin-clean-css
 
 # Installation of Grunt
 RUN npm install -g grunt-cli
