@@ -75,7 +75,10 @@ RUN usermod -aG sudo web
 RUN echo 'web ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Install YAML extension
-RUN pecl install yaml-2.0.0 && echo "extension=yaml.so" > /usr/local/etc/php/conf.d/ext-yaml.ini
+RUN pecl install yaml-2.0.2 && echo "extension=yaml.so" > /usr/local/etc/php/conf.d/ext-yaml.ini
+
+# Install APCu extension
+RUN pecl install apcu-5.1.8
 
 COPY core/memcached.conf /etc/memcached.conf
 
@@ -105,7 +108,7 @@ RUN cd /usr/src && mv composer.phar /usr/bin/composer
 
 # Installation of drush
 RUN git clone https://github.com/drush-ops/drush.git /usr/local/src/drush
-RUN cd /usr/local/src/drush && git checkout 8.1.10
+RUN cd /usr/local/src/drush && git checkout 8.1.13
 RUN ln -s /usr/local/src/drush/drush /usr/bin/drush
 RUN cd /usr/local/src/drush && composer update && composer install
 
@@ -145,11 +148,17 @@ COPY core/envvars /etc/apache2
 COPY core/other-vhosts-access-log.conf /etc/apache2/conf-enabled/
 RUN rm /etc/apache2/sites-enabled/000-default.conf
 
+# Installation of APCu cache
+RUN ( \
+  echo "extension=apcu.so"; \
+  echo "apc.enabled=1"; \
+  ) > /usr/local/etc/php/conf.d/ext-apcu.ini
+
 # Installation of Opcode cache
 RUN ( \
   echo "opcache.memory_consumption=128"; \
   echo "opcache.interned_strings_buffer=8"; \
-  echo "opcache.max_accelerated_files=4000"; \
+  echo "opcache.max_accelerated_files=20000"; \
   echo "opcache.revalidate_freq=5"; \
   echo "opcache.fast_shutdown=1"; \
   echo "opcache.enable_cli=1"; \

@@ -44,7 +44,8 @@ RUN docker-php-pecl-install \
   uploadprogress-1.0.3.1 \
   memcache-3.0.8 \
   yaml-1.2.0 \
-  mongo-1.6.12
+  mongo-1.6.12 \
+  apcu-4.0.11
 
 COPY docker-php-ext-install /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-php-ext-install
@@ -139,11 +140,17 @@ COPY core/other-vhosts-access-log.conf /etc/apache2/conf-enabled/
 RUN rm /etc/apache2/sites-enabled/000-default.conf
 RUN chown -R www-data:www-data /var/www
 
+# Installation of APCu cache
+RUN ( \
+  echo "extension=apcu.so"; \
+  echo "apc.enabled=1"; \
+  ) > /usr/local/etc/php/conf.d/docker-php-pecl-apcu.ini
+
 # Installation of Opcode cache
 RUN ( \
   echo "opcache.memory_consumption=128"; \
   echo "opcache.interned_strings_buffer=8"; \
-  echo "opcache.max_accelerated_files=4000"; \
+  echo "opcache.max_accelerated_files=20000"; \
   echo "opcache.revalidate_freq=5"; \
   echo "opcache.fast_shutdown=1"; \
   echo "opcache.enable_cli=1"; \
