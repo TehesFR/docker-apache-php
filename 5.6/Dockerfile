@@ -16,15 +16,15 @@ RUN apt-get clean && apt-get update && apt-get install -y --fix-missing \
   vim \
   memcached \
   libmemcached-tools \
-  php5-memcached \
-  php5-dev \
+  php5.6-memcached \
+  php5.6-dev \
   libpng12-dev \
   libjpeg62-turbo-dev \
   libmcrypt-dev \
   libxml2-dev \
   libxslt1-dev \
   mysql-client \
-  php5-mysqlnd \
+  php5.6-mysqlnd \
   zip \
   wget \
   linux-libc-dev \

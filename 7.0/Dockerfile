@@ -25,7 +25,6 @@ RUN apt-get clean && apt-get update && apt-get install --fix-missing -y \
   libxml2-dev \
   libxslt1-dev \
   mysql-client \
-  php5-mysqlnd \
   zip \
   wget \
   linux-libc-dev \
