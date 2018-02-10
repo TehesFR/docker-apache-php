@@ -1,9 +1,10 @@
 # About this repo
 
-Development **Drupal** optimized images for apache-php.
+Development **PHP/Drupal** optimized images for apache-php.
 
 Available tags are:
-- 7.1, latest ([7.1/Dockerfile](https://github.com/TehesFR/docker-apache-php/blob/master/7.1/Dockerfile))
+- 7.2, latest ([7.2/Dockerfile](https://github.com/TehesFR/docker-apache-php/blob/master/7.2/Dockerfile))
+- 7.1 ([7.1/Dockerfile](https://github.com/TehesFR/docker-apache-php/blob/master/7.1/Dockerfile))
 - 7.0 ([7.0/Dockerfile](https://github.com/TehesFR/docker-apache-php/blob/master/7.0/Dockerfile))
 - 5.6 ([5.6/Dockerfile](https://github.com/TehesFR/docker-apache-php/tree/master/5.6/Dockerfile))
 
@@ -12,7 +13,7 @@ The image basically contains:
 - All php libraries needed for Drupal (gd, mbstring, mcrypt, zip, soap, pdo_mysql, mysqli, xsl, opcache, calendar, intl, bcmath)
 - Development tools for Drupal (xdebug, codesniffer, compass, less, node.js, grunt, gulp, composer, drush, drupal console, phing, phpcpd, phpmetrics)
 - Much more...
-- The 7.0 and 7.1 images include wkhtmltopdf, and use a dedicated "web" user. Use sudo if you want to be root inside the container.
+- The 7.x images include wkhtmltopdf, and use a dedicated "web" user. Use sudo if you want to be root inside the container.
 
 # Docker-compose
 ## Use this docker-compose.yml to create a complete development environment using several custom Docker images:

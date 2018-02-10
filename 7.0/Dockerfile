@@ -1,5 +1,5 @@
 # Pull base image.
-FROM php:7.0.21-apache
+FROM php:7.0.27-apache
 COPY config/php.ini /usr/local/etc/php/
 
 RUN apt-get clean && apt-get update && apt-get install --fix-missing wget -y
@@ -73,10 +73,10 @@ RUN usermod -aG sudo web
 RUN echo 'web ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Install YAML extension
-RUN pecl install yaml-2.0.0 && echo "extension=yaml.so" > /usr/local/etc/php/conf.d/ext-yaml.ini
+RUN pecl install yaml-2.0.2 && echo "extension=yaml.so" > /usr/local/etc/php/conf.d/ext-yaml.ini
 
 # Install APCu extension
-RUN pecl install apcu-5.1.8
+RUN pecl install apcu-5.1.9
 
 COPY core/memcached.conf /etc/memcached.conf
 
@@ -106,7 +106,7 @@ RUN cd /usr/src && mv composer.phar /usr/bin/composer
 
 # Installation of drush
 RUN git clone https://github.com/drush-ops/drush.git /usr/local/src/drush
-RUN cd /usr/local/src/drush && git checkout 8.1.9
+RUN cd /usr/local/src/drush && git checkout 8.1.16
 RUN ln -s /usr/local/src/drush/drush /usr/bin/drush
 RUN cd /usr/local/src/drush && composer update && composer install
 
