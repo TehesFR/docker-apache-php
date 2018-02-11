@@ -1,13 +1,10 @@
 # Pull base image.
-FROM php:5.6.33-apache
+FROM php:5.6-apache
 COPY config/php.ini /usr/local/etc/php/
 
 # ADD BASHRC CONFIG
 COPY config/bashrc /root/
 RUN mv /root/bashrc /root/.bashrc
-
-RUN apt-get update && apt-cache search php5
-RUN apt-get update && apt-cache search mysql
 
 RUN apt-get clean && apt-get update && apt-get install -y --fix-missing \
   ruby-dev \
@@ -46,9 +43,9 @@ RUN chmod +x /usr/local/bin/docker-php-pecl-install
 RUN docker-php-pecl-install \
   uploadprogress-1.0.3.1 \
   memcache-3.0.8 \
-  yaml-1.3.1 \
-  mongo-1.6.16 \
-  apcu-5.1.9
+  yaml-1.2.0 \
+  mongo-1.6.12 \
+  apcu-4.0.11
 
 COPY docker-php-ext-install /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-php-ext-install
@@ -90,9 +87,8 @@ COPY core/memcached.conf /etc/memcached.conf
     gem install compass; \
 
     # Installation node.js
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-	  apt-get update && apt-get install -y nodejs && \
-	  npm install npm@latest -g \
+    curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -; \
+    DEBIAN_FRONTEND=noninteractive apt-get -yq --no-install-recommends install -y nodejs; \
 
     # Installation of LESS
     npm update -g npm && \
@@ -110,7 +106,7 @@ COPY core/memcached.conf /etc/memcached.conf
 
     # Installation of drush
     git clone https://github.com/drush-ops/drush.git /usr/local/src/drush; \
-    cd /usr/local/src/drush && git checkout 8.1.16; \
+    cd /usr/local/src/drush && git checkout 8.1.2; \
     ln -s /usr/local/src/drush/drush /usr/bin/drush; \
     cd /usr/local/src/drush && composer update && composer install; \
 
