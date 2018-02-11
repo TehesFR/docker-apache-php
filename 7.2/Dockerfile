@@ -19,17 +19,17 @@ RUN apt-get clean && apt-get update && apt-get install --fix-missing -y \
   sudo \
   git \
   vim \
-  php7.2-dev \
+  #php7.2-dev \
   memcached \
   libmemcached-tools \
   libmemcached-dev \
-  libpng12-dev \
+  libpng-dev \
   libjpeg62-turbo-dev \
   libmcrypt-dev \
   libxml2-dev \
   libxslt1-dev \
   mysql-client \
-  php7.2-mysql \
+  #php7.2-mysql \
   zip \
   wget \
   linux-libc-dev \
