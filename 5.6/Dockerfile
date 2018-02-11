@@ -6,6 +6,9 @@ COPY config/php.ini /usr/local/etc/php/
 COPY config/bashrc /root/
 RUN mv /root/bashrc /root/.bashrc
 
+RUN apt-get update && apt-cache search php5
+RUN apt-get update && apt-cache search mysql
+
 RUN apt-get clean && apt-get update && apt-get install -y --fix-missing \
   ruby-dev \
   rubygems \
@@ -16,15 +19,15 @@ RUN apt-get clean && apt-get update && apt-get install -y --fix-missing \
   vim \
   memcached \
   libmemcached-tools \
-  php5.6-memcached \
-  php5.6-dev \
+  php5-memcached \
+  php5-dev \
   libpng12-dev \
   libjpeg62-turbo-dev \
   libmcrypt-dev \
   libxml2-dev \
   libxslt1-dev \
   mysql-client \
-  php5.6-mysqlnd \
+  php5-mysqlnd \
   zip \
   wget \
   linux-libc-dev \
