@@ -49,8 +49,6 @@ RUN cd /tmp/php-memcached && sudo git checkout php7 && phpize && ./configure --d
 RUN touch /usr/local/etc/php/conf.d/memcached.ini &&\
  echo "extension=/usr/local/lib/php/extensions/no-debug-non-zts-20170718/memcached.so" >> /usr/local/etc/php/conf.d/memcached.ini
 
-COPY docker-php-ext-install /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-php-ext-install
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
 && docker-php-ext-install \
   gd \
