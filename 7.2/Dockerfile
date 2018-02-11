@@ -55,7 +55,7 @@ RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
 && docker-php-ext-install \
   gd \
   mbstring \
-  mcrypt \
+  #mcrypt \ deprecated in 7.1 and removed in 7.2 in favor of openssl already included
   zip \
   soap \
   pdo_mysql \
