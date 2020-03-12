@@ -154,7 +154,11 @@ RUN curl https://drupalconsole.com/installer -L -o drupal.phar && mv drupal.phar
 
 # Install WKHTMLTOPDF 0.12.5
 RUN apt-get update && apt-get remove -y libqt4-dev qt4-dev-tools wkhtmltopdf && apt-get autoremove -y
-RUN apt-get update && apt-get install -y wkhtmltopdf && apt-get autoremove -y
+RUN apt-get update && apt-get install -y libjpeg62-turbo libfontenc1 xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils openssl build-essential libssl-dev libxrender-dev git-core libx11-dev libxext-dev libfontconfig1-dev libfreetype6-dev fontconfig
+RUN cd /tmp && wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
+RUN cd /tmp && dpkg -i wkhtmltox_0.12.5-1.buster_amd64.deb
+RUN apt --fix-broken install
+# RUN apt-get update && apt-get install -y wkhtmltopdf && apt-get autoremove -y
 # RUN apt-get install openssl build-essential libssl-dev libxrender-dev git-core libx11-dev libxext-dev libfontconfig1-dev libfreetype6-dev fontconfig -y
 # RUN mkdir /var/wkhtmltopdf
 # RUN cd /var/wkhtmltopdf && wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && tar xf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
