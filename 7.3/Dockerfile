@@ -191,8 +191,8 @@ RUN chown -R web:www-data /var/www/
 # Set timezone to Europe/Paris
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
-# Expose 80,443 for apache
-EXPOSE 80 443
+# Expose 80,443 for apache, 9000 for xdebug
+EXPOSE 80 443 9000
 
 # Add web and root .bashrc config
 # When you "docker exec -it" into the container, you will be switched as web user and placed in /var/www/html
