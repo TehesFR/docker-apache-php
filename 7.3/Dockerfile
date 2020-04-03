@@ -193,7 +193,7 @@ RUN mkdir /var/www/.ssh/
 RUN chown -R web:www-data /var/www/
 
 # Set timezone to Europe/Paris
-RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
+RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 # Expose 80,443 for apache, 9000 for xdebug
 EXPOSE 80 443 9000
